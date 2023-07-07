@@ -8,7 +8,7 @@ import { Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <div className="min-h-screen flex flex-col text-zinc-900">
-      <Modal />
+      {/* <Modal /> */}
       <Topbar />
       <div className="flex grow w-full h-full">
         <Sidebar />

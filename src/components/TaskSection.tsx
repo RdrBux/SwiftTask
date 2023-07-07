@@ -1,6 +1,7 @@
 import { TaskList, Tasks } from '../types';
 import { Plus } from './Icons';
 import Task from './Task';
+import { Droppable } from 'react-beautiful-dnd';
 
 interface Props extends TaskList {
   allTasks: Tasks;
@@ -19,10 +20,18 @@ export default function TaskSection({ id, title, tasks, allTasks }: Props) {
   }
 
   function displayTasks() {
-    if (tasks.length < 1) return;
-    return tasks.map((value) => {
+    if (tasks.length < 1) return <></>;
+    return tasks.map((value, index) => {
       const { id, title, description } = allTasks[value];
-      return <Task key={id} id={id} title={title} description={description} />;
+      return (
+        <Task
+          key={id}
+          id={id}
+          title={title}
+          description={description}
+          index={index}
+        />
+      );
     });
   }
 
@@ -45,7 +54,18 @@ export default function TaskSection({ id, title, tasks, allTasks }: Props) {
         </button>
       </div>
       <hr style={{ border: `1.5px solid ${color}` }} />
-      {displayTasks()}
+      <Droppable droppableId={id} key={id}>
+        {(provided) => (
+          <div
+            className="min-h-[1rem]"
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {displayTasks()}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
     </section>
   );
 }

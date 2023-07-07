@@ -6,11 +6,11 @@ import { DataProvider } from './context/DataContext.tsx';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+  <>
     <DataProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </DataProvider>
-  </React.StrictMode>
+  </>
 );
