@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Home from './components/Home';
 import Main from './components/Main';
 import Modal from './components/Modal';
@@ -6,12 +7,20 @@ import Topbar from './components/Topbar';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
+  const [showCreateProject, setShowCreateProject] = useState(false);
+  console.log(showCreateProject);
+
   return (
     <div className="min-h-screen flex flex-col text-zinc-900">
-      {/* <Modal /> */}
+      <Modal
+        open={showCreateProject}
+        onClose={() => setShowCreateProject(false)}
+      >
+        <div className="p-4 rounded-lg bg-white">Hola</div>
+      </Modal>
       <Topbar />
       <div className="flex grow w-full h-full">
-        <Sidebar />
+        <Sidebar showModal={setShowCreateProject} />
         {
           <Routes>
             <Route path="/" element={<Home />} />

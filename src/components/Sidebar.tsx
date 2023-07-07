@@ -4,7 +4,11 @@ import { DataContext, DataContextType } from '../context/DataContext';
 import SidebarButton from './SidebarButton';
 import NavButton from './NavButton';
 
-export default function Sidebar() {
+interface Props {
+  showModal: any;
+}
+
+export default function Sidebar({ showModal }: Props) {
   const { data } = useContext(DataContext) as DataContextType;
 
   const projectLinks = data.map((project) => (
@@ -12,6 +16,11 @@ export default function Sidebar() {
       <NavButton id={project.id} title={project.title} />
     </li>
   ));
+
+  function handleClick() {
+    console.log('click');
+    showModal(true);
+  }
 
   return (
     <aside className="hidden p-5 lg:flex flex-col grow-1 shrink-0 w-64 border-r bg-white font-medium">
@@ -23,7 +32,10 @@ export default function Sidebar() {
       <ul className="text-zinc-700 text-base my-2 flex flex-col gap-1">
         {projectLinks}
       </ul>
-      <button className="p-2 font-bold flex items-center gap-3 text-orange-900 bg-orange-100 rounded-lg duration-200 hover:bg-orange-200">
+      <button
+        onClick={handleClick}
+        className="p-2 font-bold flex items-center gap-3 text-orange-900 bg-orange-100 rounded-lg duration-200 hover:bg-orange-200"
+      >
         {FolderAdd} Crear proyecto
       </button>
     </aside>
