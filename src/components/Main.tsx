@@ -10,8 +10,18 @@ export default function Main() {
   const projectData = data.find((project) => project.id === id);
 
   if (!projectData) return;
-  const content = projectData.tasks.map(({ id, taskList, title }) => (
+  /* const content = projectData.tasks.map(({ id, taskList, title }) => (
     <TaskSection key={id} id={id} taskList={taskList} title={title} />
+  )); */
+
+  const content = projectData.taskLists.map(({ id, title, tasks }) => (
+    <TaskSection
+      key={id}
+      id={id}
+      tasks={tasks}
+      title={title}
+      allTasks={projectData.tasks}
+    />
   ));
 
   return (

@@ -4,52 +4,66 @@ export const data: Data = [
   {
     id: '1',
     title: 'Proyecto 1',
-    tasks: [
+    description: 'Acá está la descripción del proyecto.',
+    tasks: {
+      '1': {
+        id: '1',
+        title: 'Esta es la task 1',
+        description: 'Descripción de la task 1',
+      },
+      '2': {
+        id: '2',
+        title: 'Esta es la segunda task',
+      },
+    },
+    taskLists: [
       {
-        id: 'task-1',
+        id: 'column-1',
         title: 'Por hacer',
-        taskList: [
-          {
-            title: 'Hacer cosas',
-            id: 'a',
-            description: 'Acá va la descripción',
-          },
-          { title: 'Hacer otras cosas', id: 'b' },
-        ],
+        tasks: ['1', '2'],
       },
       {
-        id: 'task-2',
+        id: 'column-2',
         title: 'En proceso',
-        taskList: [{ title: 'Haciendo cosas', id: 'c' }],
+        tasks: [],
       },
       {
-        id: 'task-3',
+        id: 'column-3',
         title: 'Realizadas',
-        taskList: [],
+        tasks: [],
       },
     ],
   },
   {
     id: '2',
     title: 'Proyecto 2',
-    tasks: [
+    description: 'Acá está la descripción del proyecto 2.',
+    tasks: {
+      '1': {
+        id: '1',
+        title: 'Esta es la task 1',
+        description: 'Descripción de la task 1',
+      },
+      '2': {
+        id: '2',
+        title: 'Esta es la segunda task',
+      },
+    },
+    taskLists: [
       {
-        id: 'task-1',
+        id: 'column-1',
         title: 'Por hacer',
-        taskList: [
-          { title: 'Hacer cosas 2', id: 'd' },
-          { title: 'Hacer otras cosas 2', id: 'e' },
-        ],
+        tasks: ['1', '2'],
       },
       {
-        id: 'task-2',
+        id: 'column-2',
         title: 'En proceso',
-        taskList: [{ title: 'Haciendo cosas', id: 'f' }],
+        tasks: [],
       },
       {
-        id: 'task-3',
+        id: 'column-3',
         title: 'Realizadas',
-        taskList: [],
+        tasks: [],
       },
     ],
   },
