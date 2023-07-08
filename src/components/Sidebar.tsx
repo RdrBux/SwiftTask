@@ -18,7 +18,6 @@ export default function Sidebar({ showModal }: Props) {
   ));
 
   function handleClick() {
-    console.log('click');
     showModal(true);
   }
 

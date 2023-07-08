@@ -17,7 +17,7 @@ export default function Home() {
   ));
 
   return (
-    <div className="p-8 flex flex-col lg:grid lg:grid-cols-3 gap-8 w-full bg-zinc-100">
+    <div className="p-8 flex flex-col lg:grid lg:grid-cols-3 gap-8 w-full">
       {displayProjects}
     </div>
   );

@@ -8,5 +8,5 @@ dialog {
 }
 
 dialog::backdrop {
-  @apply bg-black/20 backdrop-blur-sm;
+  @apply bg-black/50 backdrop-blur-sm;
 }

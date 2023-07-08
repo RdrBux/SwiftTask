@@ -5,6 +5,7 @@ import Modal from './components/Modal';
 import Sidebar from './components/Sidebar';
 import Topbar from './components/Topbar';
 import { Routes, Route } from 'react-router-dom';
+import NewProjectForm from './components/NewProjectForm';
 
 function App() {
   const [showCreateProject, setShowCreateProject] = useState(false);
@@ -16,7 +17,7 @@ function App() {
         open={showCreateProject}
         onClose={() => setShowCreateProject(false)}
       >
-        <div className="p-4 rounded-lg bg-white">Hola</div>
+        <NewProjectForm onClose={() => setShowCreateProject(false)} />
       </Modal>
       <Topbar />
       <div className="flex grow w-full h-full">

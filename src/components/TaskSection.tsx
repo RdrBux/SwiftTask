@@ -11,7 +11,7 @@ export default function TaskSection({ id, title, tasks, allTasks }: Props) {
   const colors = {
     'Por hacer': '#7C3AED',
     'En proceso': '#FB923C',
-    Realizadas: '#16A34A',
+    Realizadas: '#10B981',
   };
 
   let color = 'orange';
