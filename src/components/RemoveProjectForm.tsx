@@ -30,12 +30,16 @@ export default function RemoveProjectForm({ name, id, onClose }: Props) {
       <p>
         ¿Desea remover el proyecto: <b>{name}</b> ?
       </p>
-      <div className="flex gap-4 font-bold">
-        <button className="py-2 px-4 border-2 text-red-500 border-red-500 rounded-lg">
-          Eliminar
-        </button>
-        <button onClick={onClose} type="button" className="py-2 px-4">
+      <div className="flex justify-between gap-4 font-bold">
+        <button
+          onClick={onClose}
+          type="button"
+          className="py-2 px-4 rounded-lg hover:bg-zinc-100"
+        >
           Cancelar
+        </button>
+        <button className="py-2 px-4  text-white bg-red-500 rounded-lg hover:bg-red-600 active:bg-red-800">
+          Eliminar
         </button>
       </div>
     </form>

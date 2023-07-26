@@ -17,7 +17,7 @@ export default function TaskForm({ onClose }: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white relative shadow min-w-[300px] lg:min-w-[400px] p-8 rounded-lg flex flex-col gap-4"
+      className="bg-white relative shadow min-w-[300px] lg:min-w-[400px] p-8 rounded-lg flex flex-col gap-6"
     >
       <button
         onClick={onClose}
@@ -27,10 +27,10 @@ export default function TaskForm({ onClose }: Props) {
         {Close}
       </button>
       <div className="font-bold text-2xl">Agregar tarea</div>
-      <label className="flex flex-col">
-        <span>Título</span>
+      <label className="flex flex-col gap-2">
+        <span className="text-sm">Título</span>
         <input
-          className="p-2 rounded-lg border-2 border-orange-200 focus:bg-orange-50"
+          className="p-2 rounded-lg border border-zinc-300 focus:outline-orange-300"
           type="text"
           name="task-title"
           id="task-title"
@@ -40,10 +40,10 @@ export default function TaskForm({ onClose }: Props) {
         />
       </label>
 
-      <label className="flex flex-col">
-        <span>Descripción (opcional)</span>
+      <label className="flex flex-col gap-2">
+        <span className="text-sm">Descripción (opcional)</span>
         <input
-          className="p-2 rounded-lg border-2 border-orange-200 focus:bg-orange-50"
+          className="p-2 rounded-lg border border-zinc-300 focus:outline-orange-300"
           type="text"
           name="task-description"
           id="task-description"
@@ -52,7 +52,7 @@ export default function TaskForm({ onClose }: Props) {
         />
       </label>
 
-      <button className="py-3 bg-orange-700 text-white rounded-lg shadow font-bold hover:shadow-lg duration-200">
+      <button className="py-3 bg-orange-600 text-white rounded-lg shadow font-bold hover:bg-orange-700 active:bg-orange-800">
         Agregar
       </button>
     </form>

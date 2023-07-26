@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, nanoid } from '@reduxjs/toolkit';
 import { data } from '../mocks/data';
 import { Project } from '../types';
 
@@ -44,6 +44,15 @@ export const projectsSlice = createSlice({
       return state.map((project) =>
         project.id === updatedProject.id ? updatedProject : project
       );
+    },
+    taskCreate(state, action) {
+      const { projectId, taskData } = action.payload;
+      const id = nanoid();
+
+      const project = state.find((project) => project.id === projectId);
+      if (project) {
+        project.taskLists[0].tasks.push({ ...taskData, id });
+      }
     },
   },
 });

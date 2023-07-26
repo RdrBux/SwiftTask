@@ -1,19 +1,14 @@
-import { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { Trash } from './Icons';
 import Modal from './Modal';
 import RemoveProjectForm from './RemoveProjectForm';
-import { useAppSelector } from '../hooks/redux';
+import { ProjectContext } from '../context/ProjectContext';
 
 export default function Topbar() {
   const [showRemoveProject, setShowRemoveProject] = useState(false);
-  const location = useLocation();
-  const projects = useAppSelector((state) => state.projects);
 
-  const activeProject = projects.find(
-    (project) => `/${project.id}` === location.pathname
-  );
-
+  const { activeProject } = useContext(ProjectContext);
   return (
     <div className="bg-white flex items-center border-b">
       <Link to="/" className="flex items-center gap-2 lg:w-64 p-5 border-r">
