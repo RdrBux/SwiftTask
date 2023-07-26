@@ -1,6 +1,6 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
 import { data } from '../mocks/data';
-import { Project } from '../types';
+import { Project, Task } from '../types';
 
 export const projectsSlice = createSlice({
   name: 'projects',
@@ -51,13 +51,19 @@ export const projectsSlice = createSlice({
 
       const project = state.find((project) => project.id === projectId);
       if (project) {
-        project.taskLists[0].tasks.push({ ...taskData, id });
+        project.tasks[id] = {
+          id,
+          title: taskData.title,
+          description: taskData.description,
+        };
+
+        project.taskLists[0].tasks.push(id);
       }
     },
   },
 });
 
-export const { projectRemove, projectCreate, projectShuffleTasks } =
+export const { projectRemove, projectCreate, projectShuffleTasks, taskCreate } =
   projectsSlice.actions;
 
 export default projectsSlice.reducer;

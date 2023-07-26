@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Close } from './Icons';
+import { useAppDispatch } from '../hooks/redux';
+import { taskCreate } from '../store/projectsSlice';
+import { ProjectContext, ProjectContextType } from '../context/ProjectContext';
 
 interface Props {
   onClose: () => void;
@@ -8,10 +11,23 @@ interface Props {
 export default function TaskForm({ onClose }: Props) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const dispatch = useAppDispatch();
+  const { activeProject } = useContext(ProjectContext) as ProjectContextType;
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log('clicked');
+    if (!activeProject) return;
+
+    dispatch(
+      taskCreate({
+        projectId: activeProject.id,
+        taskData: { title, description },
+      })
+    );
+
+    setTitle('');
+    setDescription('');
+    onClose();
   }
 
   return (

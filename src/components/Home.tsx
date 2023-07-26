@@ -10,7 +10,9 @@ export default function Home() {
       className="bg-white rounded-lg p-4 shadow h-fit hover:shadow-lg duration-200"
       to={project.id}
     >
-      <h4 className="text-3xl font-bold">{project.title}</h4>
+      <h4 title={project.title} className="text-3xl font-bold truncate">
+        {project.title}
+      </h4>
       <p className="text-zinc-500 mt-2">{project.description}</p>
     </Link>
   ));

@@ -10,6 +10,7 @@ interface Props {
 export default function NavButton({ id, title }: Props) {
   return (
     <NavLink
+      title={title}
       className={({ isActive }) =>
         `${
           isActive
@@ -19,7 +20,8 @@ export default function NavButton({ id, title }: Props) {
       }
       to={`/${id}`}
     >
-      {Folder} {title}
+      <span className="shrink-0">{Folder}</span>{' '}
+      <span className="truncate">{title}</span>
     </NavLink>
   );
 }
