@@ -5,9 +5,16 @@ import { Droppable } from 'react-beautiful-dnd';
 
 interface Props extends TaskList {
   allTasks: Tasks;
+  showForm: () => void;
 }
 
-export default function TaskSection({ id, title, tasks, allTasks }: Props) {
+export default function TaskSection({
+  id,
+  title,
+  tasks,
+  allTasks,
+  showForm,
+}: Props) {
   const colors = {
     'Por hacer': '#7C3AED',
     'En proceso': '#FB923C',
@@ -44,14 +51,16 @@ export default function TaskSection({ id, title, tasks, allTasks }: Props) {
         <h3 className="font-semibold">
           <span style={{ color: color }}>•</span> {title}
         </h3>
-        <button className="p-4 absolute -right-4">
-          <div
-            style={{ color: color, backgroundColor: `${color}30` }}
-            className="p-1 rounded-lg"
-          >
-            {Plus}
-          </div>
-        </button>
+        {title === 'Por hacer' && (
+          <button onClick={showForm} className="p-4 absolute -right-4">
+            <div
+              style={{ color: color, backgroundColor: `${color}30` }}
+              className="p-1 rounded-lg"
+            >
+              {Plus}
+            </div>
+          </button>
+        )}
       </div>
       <hr style={{ border: `1.5px solid ${color}` }} />
       <Droppable droppableId={id} key={id}>

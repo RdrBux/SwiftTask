@@ -9,7 +9,6 @@ import NewProjectForm from './components/NewProjectForm';
 
 function App() {
   const [showCreateProject, setShowCreateProject] = useState(false);
-  console.log(showCreateProject);
 
   return (
     <div className="min-h-screen flex flex-col text-zinc-900">
@@ -20,7 +19,7 @@ function App() {
         <NewProjectForm onClose={() => setShowCreateProject(false)} />
       </Modal>
       <Topbar />
-      <div className="flex grow w-full h-full">
+      <div className="flex grow h-full">
         <Sidebar showModal={setShowCreateProject} />
         {
           <Routes>

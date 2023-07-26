@@ -33,7 +33,7 @@ export default function Sidebar({ showModal }: Props) {
       </ul>
       <button
         onClick={handleClick}
-        className="p-2 font-bold flex items-center gap-3 text-orange-900 bg-orange-100 rounded-lg duration-200 hover:bg-orange-200"
+        className="p-2 font-bold flex items-center gap-3 text-orange-900 active:text-orange-100 active:bg-orange-700 bg-orange-100 rounded-lg duration-200 hover:bg-orange-200"
       >
         {FolderAdd} Crear proyecto
       </button>

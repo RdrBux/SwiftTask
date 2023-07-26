@@ -1,70 +1,36 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import DragContext from './DragContext';
+import Modal from './Modal';
+import TaskForm from './TaskForm';
 import { useParams } from 'react-router-dom';
 import { DataContext, DataContextType } from '../context/DataContext';
-import TaskSection from './TaskSection';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 export default function Main() {
   const { id } = useParams();
-  const { data, setData } = useContext(DataContext) as DataContextType;
+  const { data } = useContext(DataContext) as DataContextType;
+  const [taskForm, setTaskForm] = useState({
+    active: false,
+    data: {
+      title: '',
+      description: '',
+    },
+  });
 
   const projectData = data.find((project) => project.id === id);
 
-  if (!projectData) return;
-
-  const content = projectData.taskLists.map(({ id, title, tasks }) => (
-    <TaskSection
-      key={id}
-      id={id}
-      tasks={tasks}
-      title={title}
-      allTasks={projectData.tasks}
-    />
-  ));
-
-  function onDragEnd(result: DropResult): void {
-    // Get relevant data from the event
-    const { destination, source, draggableId } = result;
-
-    // Return if there's an invalid drag
-    if (!destination) return;
-
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    )
-      return;
-
-    // Create new project data to add on state
-    if (!projectData) return;
-
-    const newProjectData = structuredClone(projectData);
-
-    // Old column
-    const column = newProjectData.taskLists.find(
-      (col) => col.id === source.droppableId
-    );
-
-    if (!column) return;
-    const [value] = column.tasks.splice(source.index, 1);
-
-    // New column
-    const destColumn = newProjectData.taskLists.find(
-      (col) => col.id === destination.droppableId
-    );
-    if (!destColumn) return;
-
-    // Add value to new column
-    destColumn.tasks.splice(destination.index, 0, value);
-
-    setData((prev) =>
-      prev.map((proj) => (proj.id === id ? newProjectData : proj))
-    );
-  }
-
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <main className="p-8 flex overflow-scroll gap-8 w-full">{content}</main>
-    </DragDropContext>
+    <>
+      <Modal
+        open={taskForm.active}
+        onClose={() => setTaskForm((prev) => ({ ...prev, active: false }))}
+      >
+        <TaskForm
+          onClose={() => setTaskForm((prev) => ({ ...prev, active: false }))}
+        />
+      </Modal>
+      <DragContext
+        showForm={() => setTaskForm((prev) => ({ ...prev, active: true }))}
+      />
+    </>
   );
 }
