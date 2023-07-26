@@ -1,11 +1,10 @@
-import { useContext } from 'react';
-import { DataContext, DataContextType } from '../context/DataContext';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../hooks/redux';
 
 export default function Home() {
-  const { data } = useContext(DataContext) as DataContextType;
+  const projects = useAppSelector((state) => state.projects);
 
-  const displayProjects = data.map((project) => (
+  const displayProjects = projects.map((project) => (
     <Link
       key={project.id}
       className="bg-white rounded-lg p-4 shadow h-fit hover:shadow-lg duration-200"

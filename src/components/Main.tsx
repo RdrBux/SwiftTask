@@ -1,13 +1,9 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import DragContext from './DragContext';
 import Modal from './Modal';
 import TaskForm from './TaskForm';
-import { useParams } from 'react-router-dom';
-import { DataContext, DataContextType } from '../context/DataContext';
 
 export default function Main() {
-  const { id } = useParams();
-  const { data } = useContext(DataContext) as DataContextType;
   const [taskForm, setTaskForm] = useState({
     active: false,
     data: {
@@ -15,8 +11,6 @@ export default function Main() {
       description: '',
     },
   });
-
-  const projectData = data.find((project) => project.id === id);
 
   return (
     <>

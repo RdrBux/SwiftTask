@@ -1,7 +1,9 @@
-import { SyntheticEvent, useContext, useState } from 'react';
+import { useState } from 'react';
 import { Close } from './Icons';
-import { DataContext, DataContextType } from '../context/DataContext';
-import { Project } from '../types';
+import { useAppDispatch } from '../hooks/redux';
+import { nanoid } from '@reduxjs/toolkit';
+import { projectCreate } from '../store/projectsSlice';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   onClose: () => void;
@@ -10,39 +12,22 @@ interface Props {
 export default function NewProjectForm({ onClose }: Props) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const { setData } = useContext(DataContext) as DataContextType;
+  const navigate = useNavigate();
 
-  function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
+  const dispatch = useAppDispatch();
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const newProject: Project = {
-      id: String(Math.random() * 1000000),
-      title,
-      description,
-      tasks: {},
-      taskLists: [
-        {
-          id: 'column-1',
-          title: 'Por hacer',
-          tasks: [],
-        },
-        {
-          id: 'column-2',
-          title: 'En proceso',
-          tasks: [],
-        },
-        {
-          id: 'column-3',
-          title: 'Realizadas',
-          tasks: [],
-        },
-      ],
-    };
+    const id = nanoid();
 
-    setData((prev) => [...prev, newProject]);
+    dispatch(projectCreate({ title, description, id }));
 
     setTitle('');
     setDescription('');
+
+    navigate(`/${id}`);
+
     onClose();
   }
 

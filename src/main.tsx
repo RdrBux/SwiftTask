@@ -1,16 +1,16 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
-import { DataProvider } from './context/DataContext.tsx';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store/store.ts';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <>
-    <DataProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </DataProvider>
+    </Provider>
   </>
 );

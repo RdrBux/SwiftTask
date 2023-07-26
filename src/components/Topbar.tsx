@@ -1,16 +1,16 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { DataContext, DataContextType } from '../context/DataContext';
-import { Pencil, Trash } from './Icons';
+import { Trash } from './Icons';
 import Modal from './Modal';
 import RemoveProjectForm from './RemoveProjectForm';
+import { useAppSelector } from '../hooks/redux';
 
 export default function Topbar() {
   const [showRemoveProject, setShowRemoveProject] = useState(false);
   const location = useLocation();
-  const { data } = useContext(DataContext) as DataContextType;
+  const projects = useAppSelector((state) => state.projects);
 
-  const activeProject = data.find(
+  const activeProject = projects.find(
     (project) => `/${project.id}` === location.pathname
   );
 

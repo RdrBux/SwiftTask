@@ -1,8 +1,8 @@
-import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { DataContext, DataContextType } from '../context/DataContext';
 import TaskSection from './TaskSection';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import { projectShuffleTasks } from '../store/projectsSlice';
 
 interface Props {
   showForm: () => void;
@@ -10,9 +10,11 @@ interface Props {
 
 export default function DragContext({ showForm }: Props) {
   const { id } = useParams();
-  const { data, setData } = useContext(DataContext) as DataContextType;
 
-  const projectData = data.find((project) => project.id === id);
+  const projects = useAppSelector((state) => state.projects);
+  const dispatch = useAppDispatch();
+
+  const projectData = projects.find((project) => project.id === id);
 
   if (!projectData) return;
 
@@ -29,7 +31,7 @@ export default function DragContext({ showForm }: Props) {
 
   function onDragEnd(result: DropResult): void {
     // Get relevant data from the event
-    const { destination, source, draggableId } = result;
+    const { destination, source } = result;
 
     // Return if there's an invalid drag
     if (!destination) return;
@@ -62,9 +64,7 @@ export default function DragContext({ showForm }: Props) {
     // Add value to new column
     destColumn.tasks.splice(destination.index, 0, value);
 
-    setData((prev) =>
-      prev.map((proj) => (proj.id === id ? newProjectData : proj))
-    );
+    dispatch(projectShuffleTasks({ updatedProject: newProjectData }));
   }
 
   return (

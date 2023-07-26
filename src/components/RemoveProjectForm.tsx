@@ -1,7 +1,8 @@
-import { SyntheticEvent, useContext } from 'react';
+import { SyntheticEvent } from 'react';
 import { Project } from '../types';
-import { DataContext, DataContextType } from '../context/DataContext';
 import { useNavigate } from 'react-router-dom';
+import { projectRemove } from '../store/projectsSlice';
+import { useAppDispatch } from '../hooks/redux';
 
 interface Props {
   name: Project['title'];
@@ -10,12 +11,12 @@ interface Props {
 }
 
 export default function RemoveProjectForm({ name, id, onClose }: Props) {
-  const { setData } = useContext(DataContext) as DataContextType;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
-    setData((prev) => prev.filter((project) => project.id !== id));
+    dispatch(projectRemove({ id }));
     onClose();
     navigate('/');
   }
