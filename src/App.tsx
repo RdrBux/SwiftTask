@@ -9,6 +9,7 @@ import NewProjectForm from './components/NewProjectForm';
 
 function App() {
   const [showCreateProject, setShowCreateProject] = useState(false);
+  const [menuActive, setMenuActive] = useState(true);
 
   return (
     <div className="min-h-screen flex flex-col text-zinc-900">
@@ -18,9 +19,13 @@ function App() {
       >
         <NewProjectForm onClose={() => setShowCreateProject(false)} />
       </Modal>
-      <Topbar />
-      <div className="flex grow h-full">
-        <Sidebar showModal={setShowCreateProject} />
+      <Topbar menuActive={menuActive} setMenuActive={setMenuActive} />
+      <div className="flex relative grow h-full">
+        <Sidebar
+          showModal={setShowCreateProject}
+          menuActive={menuActive}
+          setMenuActive={setMenuActive}
+        />
         {
           <Routes>
             <Route path="/" element={<Home />} />

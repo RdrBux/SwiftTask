@@ -44,7 +44,7 @@ export default function TaskSection({
 
   return (
     <section
-      className="flex shrink-0 h-fit w-[300px] flex-col gap-4 p-4 bg-zinc-100 rounded-lg"
+      className="flex shrink-0 h-fit w-[70vw] md:w-[300px] flex-col gap-4 p-4 bg-zinc-100 rounded-lg"
       key={id}
     >
       <div className="flex items-center relative justify-between">
