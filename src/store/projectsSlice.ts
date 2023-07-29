@@ -60,10 +60,29 @@ export const projectsSlice = createSlice({
         project.taskLists[0].tasks.push(id);
       }
     },
+    taskEdit(state, action) {
+      const { projectId, taskData } = action.payload;
+      const { id, title, description } = taskData;
+      // find project
+      const project = state.find((project) => project.id === projectId);
+
+      // edit task
+      if (!project) return;
+      project.tasks[id] = {
+        id,
+        title,
+        description,
+      };
+    },
   },
 });
 
-export const { projectRemove, projectCreate, projectShuffleTasks, taskCreate } =
-  projectsSlice.actions;
+export const {
+  projectRemove,
+  projectCreate,
+  projectShuffleTasks,
+  taskCreate,
+  taskEdit,
+} = projectsSlice.actions;
 
 export default projectsSlice.reducer;

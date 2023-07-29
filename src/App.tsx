@@ -6,10 +6,13 @@ import Sidebar from './components/Sidebar';
 import Topbar from './components/Topbar';
 import { Routes, Route } from 'react-router-dom';
 import NewProjectForm from './components/NewProjectForm';
+import { TaskProvider } from './context/TaskContext';
 
 function App() {
   const [showCreateProject, setShowCreateProject] = useState(false);
-  const [menuActive, setMenuActive] = useState(true);
+  const [menuActive, setMenuActive] = useState(
+    window.innerWidth < 1024 ? false : true
+  );
 
   return (
     <div className="min-h-screen flex flex-col text-zinc-900">
@@ -29,7 +32,14 @@ function App() {
         {
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/:id" element={<Main />} />
+            <Route
+              path="/:id"
+              element={
+                <TaskProvider>
+                  <Main />
+                </TaskProvider>
+              }
+            />
           </Routes>
         }
       </div>

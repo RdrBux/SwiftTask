@@ -1,30 +1,18 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import DragContext from './DragContext';
 import Modal from './Modal';
 import TaskForm from './TaskForm';
+import { TaskContext, TaskContextType } from '../context/TaskContext';
 
 export default function Main() {
-  const [taskForm, setTaskForm] = useState({
-    active: false,
-    data: {
-      title: '',
-      description: '',
-    },
-  });
+  const { taskData, clearData } = useContext(TaskContext) as TaskContextType;
 
   return (
     <>
-      <Modal
-        open={taskForm.active}
-        onClose={() => setTaskForm((prev) => ({ ...prev, active: false }))}
-      >
-        <TaskForm
-          onClose={() => setTaskForm((prev) => ({ ...prev, active: false }))}
-        />
+      <Modal open={taskData.active} onClose={() => clearData()}>
+        <TaskForm onClose={() => clearData()} />
       </Modal>
-      <DragContext
-        showForm={() => setTaskForm((prev) => ({ ...prev, active: true }))}
-      />
+      <DragContext />
     </>
   );
 }

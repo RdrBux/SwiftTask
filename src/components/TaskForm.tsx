@@ -1,37 +1,60 @@
-import { useState, useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { Close } from './Icons';
 import { useAppDispatch } from '../hooks/redux';
-import { taskCreate } from '../store/projectsSlice';
+import { taskCreate, taskEdit } from '../store/projectsSlice';
 import { ProjectContext, ProjectContextType } from '../context/ProjectContext';
+import { TaskContext, TaskContextType } from '../context/TaskContext';
 
 interface Props {
   onClose: () => void;
 }
 
 export default function TaskForm({ onClose }: Props) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const { taskData } = useContext(TaskContext) as TaskContextType;
+
+  /* const [title, setTitle] = useState('');
+  const [description, setDescription] = useState(''); */
   const dispatch = useAppDispatch();
   const { activeProject } = useContext(ProjectContext) as ProjectContextType;
+  const form = useRef<HTMLFormElement>(null);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!activeProject) return;
+    if (!activeProject || !form.current) return;
 
-    dispatch(
-      taskCreate({
-        projectId: activeProject.id,
-        taskData: { title, description },
-      })
-    );
+    const data = new FormData(e.target as HTMLFormElement);
 
-    setTitle('');
-    setDescription('');
+    if (taskData.data.id) {
+      dispatch(
+        taskEdit({
+          projectId: activeProject.id,
+          taskData: {
+            id: taskData.data.id,
+            title: data.get('task-title'),
+            description: data.get('task-description'),
+          },
+        })
+      );
+    } else {
+      dispatch(
+        taskCreate({
+          projectId: activeProject.id,
+          taskData: {
+            title: data.get('task-title'),
+            description: data.get('task-description'),
+          },
+        })
+      );
+    }
+
+    form.current.reset();
+
     onClose();
   }
 
   return (
     <form
+      ref={form}
       onSubmit={handleSubmit}
       className="bg-white relative shadow min-w-[300px] lg:min-w-[400px] p-8 rounded-lg flex flex-col gap-6"
     >
@@ -42,16 +65,18 @@ export default function TaskForm({ onClose }: Props) {
       >
         {Close}
       </button>
-      <div className="font-bold text-2xl">Agregar tarea</div>
+      <div className="font-bold text-2xl">
+        {taskData.data.id ? 'Editar' : 'Agregar'} tarea
+      </div>
       <label className="flex flex-col gap-2">
         <span className="text-sm">Título</span>
         <input
           className="p-2 rounded-lg border border-zinc-300 focus:outline-orange-300"
+          autoFocus
           type="text"
           name="task-title"
           id="task-title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          defaultValue={taskData.data.title}
           required
         />
       </label>
@@ -63,13 +88,12 @@ export default function TaskForm({ onClose }: Props) {
           type="text"
           name="task-description"
           id="task-description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          defaultValue={taskData.data.description}
         />
       </label>
 
       <button className="py-3 bg-orange-600 text-white rounded-lg shadow font-bold hover:bg-orange-700 active:bg-orange-800">
-        Agregar
+        Guardar
       </button>
     </form>
   );

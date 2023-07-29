@@ -49,6 +49,7 @@ export default function NewProjectForm({ onClose }: Props) {
         <input
           className="p-2 rounded-lg border border-zinc-300 focus:outline-orange-300"
           type="text"
+          autoFocus
           name="title"
           maxLength={32}
           id="title"

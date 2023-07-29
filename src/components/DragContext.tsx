@@ -3,12 +3,9 @@ import TaskSection from './TaskSection';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { projectShuffleTasks } from '../store/projectsSlice';
+import Draggable from './Draggable';
 
-interface Props {
-  showForm: () => void;
-}
-
-export default function DragContext({ showForm }: Props) {
+export default function DragContext() {
   const { id } = useParams();
 
   const projects = useAppSelector((state) => state.projects);
@@ -24,7 +21,6 @@ export default function DragContext({ showForm }: Props) {
       id={id}
       tasks={tasks}
       title={title}
-      showForm={showForm}
       allTasks={projectData.tasks}
     />
   ));
@@ -69,7 +65,9 @@ export default function DragContext({ showForm }: Props) {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <main className="p-8 flex overflow-auto gap-8">{content}</main>
+      <main className="p-8 flex overflow-auto gap-8 cursor-grab">
+        {content}
+      </main>
     </DragDropContext>
   );
 }
