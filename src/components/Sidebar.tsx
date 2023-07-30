@@ -1,7 +1,8 @@
-import { FolderAdd } from './Icons';
+import { CloseMini, FolderAdd } from './Icons';
 import SidebarButton from './SidebarButton';
 import NavButton from './NavButton';
 import { useAppSelector } from '../hooks/redux';
+import HintCard from './HintCard';
 
 interface Props {
   showModal: (arg0: boolean) => void;
@@ -51,6 +52,9 @@ export default function Sidebar({
         >
           {FolderAdd} Crear proyecto
         </button>
+        <div className="flex items-end grow">
+          <HintCard />
+        </div>
       </aside>
       <div
         onClick={handleCloseMenu}

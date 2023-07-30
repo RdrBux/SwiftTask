@@ -10,9 +10,7 @@ import { TaskProvider } from './context/TaskContext';
 
 function App() {
   const [showCreateProject, setShowCreateProject] = useState(false);
-  const [menuActive, setMenuActive] = useState(
-    window.innerWidth < 1024 ? false : true
-  );
+  const [menuActive, setMenuActive] = useState(true);
 
   return (
     <div className="min-h-screen flex flex-col text-zinc-900">

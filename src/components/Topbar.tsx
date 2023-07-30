@@ -44,9 +44,9 @@ export default function Topbar({ menuActive, setMenuActive }: Props) {
           </h1>
         </Link>
       </div>
-      <div className="flex justify-between grow px-8">
+      <div className="flex justify-between items-center grow px-8">
         <div className="flex gap-2">
-          <h3 className="text-2xl lg:text-3xl font-bold truncate max-w-[30vw] md:max-w-none">
+          <h3 className="text-2xl font-bold truncate max-w-[30vw] md:max-w-none">
             {activeProject?.title ?? 'Inicio'}
           </h3>
           {activeProject && (
@@ -58,7 +58,9 @@ export default function Topbar({ menuActive, setMenuActive }: Props) {
             </button>
           )}
         </div>
-        <button className="bg-zinc-300 shrink-0 w-9 h-9 rounded-full"></button>
+        <button className="h-10 -mr-3 rounded-lg px-4 bg-zinc-600 text-xs font-bold text-white">
+          Iniciar sesión
+        </button>
       </div>
       {activeProject && (
         <Modal
