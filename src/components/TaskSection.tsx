@@ -5,13 +5,24 @@ import { Plus } from './Icons';
 import Task from './Task';
 import { Droppable } from 'react-beautiful-dnd';
 
+function NewTaskButton() {
+  const { showEmptyData } = useContext(TaskContext) as TaskContextType;
+
+  return (
+    <button
+      onClick={() => showEmptyData()}
+      className="flex duration-200 items-center gap-2 rounded-lg text-zinc-500 hover:bg-zinc-200 text-sm font-semibold px-4 py-2 -mt-4"
+    >
+      {Plus} Agregar una tarea
+    </button>
+  );
+}
+
 interface Props extends TaskList {
   allTasks: Tasks;
 }
 
 export default function TaskSection({ id, title, tasks, allTasks }: Props) {
-  const { showEmptyData } = useContext(TaskContext) as TaskContextType;
-
   const colors = {
     'Por hacer': '#7C3AED',
     'En proceso': '#FB923C',
@@ -62,14 +73,7 @@ export default function TaskSection({ id, title, tasks, allTasks }: Props) {
           </div>
         )}
       </Droppable>
-      {title === 'Por hacer' && (
-        <button
-          onClick={() => showEmptyData()}
-          className="flex duration-200 items-center gap-2 rounded-lg text-zinc-500 hover:bg-zinc-200 text-sm font-semibold px-4 py-2 -mt-4"
-        >
-          {Plus} Agregar una tarea
-        </button>
-      )}
+      {title === 'Por hacer' && <NewTaskButton />}
     </section>
   );
 }

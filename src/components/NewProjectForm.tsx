@@ -61,7 +61,7 @@ export default function NewProjectForm({ onClose }: Props) {
       <label className="flex flex-col gap-2">
         <span className="text-sm">Descripción (opcional)</span>
         <input
-          className="p-2 rounded-lg border-2 border-zinc-300 focus:outline-orange-300"
+          className="p-2 rounded-lg border border-zinc-300 focus:outline-orange-300"
           type="text"
           name="project-description"
           id="project-description"

@@ -12,8 +12,6 @@ interface Props {
 export default function TaskForm({ onClose }: Props) {
   const { taskData } = useContext(TaskContext) as TaskContextType;
 
-  /* const [title, setTitle] = useState('');
-  const [description, setDescription] = useState(''); */
   const dispatch = useAppDispatch();
   const { activeProject } = useContext(ProjectContext) as ProjectContextType;
   const form = useRef<HTMLFormElement>(null);

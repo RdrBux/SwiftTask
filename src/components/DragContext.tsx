@@ -4,6 +4,7 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { projectShuffleTasks } from '../store/projectsSlice';
 import Draggable from './Draggable';
+import { handleChange } from '../utils/dragAndDrop';
 
 export default function DragContext() {
   const { id } = useParams();
@@ -26,39 +27,9 @@ export default function DragContext() {
   ));
 
   function onDragEnd(result: DropResult): void {
-    // Get relevant data from the event
-    const { destination, source } = result;
-
-    // Return if there's an invalid drag
-    if (!destination) return;
-
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    )
-      return;
-
-    // Create new project data to add on state
     if (!projectData) return;
 
-    const newProjectData = structuredClone(projectData);
-
-    // Old column
-    const column = newProjectData.taskLists.find(
-      (col) => col.id === source.droppableId
-    );
-
-    if (!column) return;
-    const [value] = column.tasks.splice(source.index, 1);
-
-    // New column
-    const destColumn = newProjectData.taskLists.find(
-      (col) => col.id === destination.droppableId
-    );
-    if (!destColumn) return;
-
-    // Add value to new column
-    destColumn.tasks.splice(destination.index, 0, value);
+    const newProjectData = handleChange(projectData, result);
 
     dispatch(projectShuffleTasks({ updatedProject: newProjectData }));
   }

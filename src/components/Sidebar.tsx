@@ -1,8 +1,7 @@
-import { CloseMini, FolderAdd } from './Icons';
+import { FolderAdd } from './Icons';
 import SidebarButton from './SidebarButton';
-import NavButton from './NavButton';
-import { useAppSelector } from '../hooks/redux';
 import HintCard from './HintCard';
+import ProjectsList from './ProjectsList';
 
 interface Props {
   showModal: (arg0: boolean) => void;
@@ -15,14 +14,6 @@ export default function Sidebar({
   menuActive,
   setMenuActive,
 }: Props) {
-  const projects = useAppSelector((state) => state.projects);
-
-  const projectLinks = projects.map((project) => (
-    <li key={project.id}>
-      <NavButton id={project.id} title={project.title} />
-    </li>
-  ));
-
   function handleClick() {
     showModal(true);
   }
@@ -40,12 +31,7 @@ export default function Sidebar({
       >
         <SidebarButton />
         <hr className="mt-5" />
-        <h2 className="mt-5 text-zinc-500 text-sm font-bold">
-          PROYECTOS ({projects.length})
-        </h2>
-        <ul className="text-zinc-700 text-base my-2 flex flex-col gap-1">
-          {projectLinks}
-        </ul>
+        <ProjectsList />
         <button
           onClick={handleClick}
           className="p-2 font-bold w-full flex items-center gap-3 text-orange-900 active:text-orange-100 active:bg-orange-700 bg-orange-200 rounded-lg duration-200 hover:bg-orange-300"

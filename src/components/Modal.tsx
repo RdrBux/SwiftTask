@@ -1,9 +1,9 @@
-import { MouseEventHandler, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface Props {
   children: JSX.Element;
   open: boolean;
-  onClose: any;
+  onClose: () => void;
 }
 
 export default function Modal({ children, open, onClose }: Props) {

@@ -10,7 +10,7 @@ export default function HintCard() {
 
   return (
     showCard && (
-      <div className="text-sm border relative text-zinc-600 rounded-lg p-2 mt-4 mb-12 lg:mb-4 shadow-md">
+      <div className="text-sm border border-zinc-600/20 relative text-zinc-600 rounded-lg p-2 mt-4 mb-12 lg:mb-4 shadow-md">
         <button
           onClick={handleClick}
           className="p-4 absolute -right-2 -top-2 hover:text-zinc-800"

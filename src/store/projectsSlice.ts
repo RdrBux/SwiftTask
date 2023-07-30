@@ -1,6 +1,6 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
 import { data } from '../mocks/data';
-import { Project, Task } from '../types';
+import { Project } from '../types';
 
 export const projectsSlice = createSlice({
   name: 'projects',
